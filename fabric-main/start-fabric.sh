@@ -35,22 +35,30 @@ function main {
     createNamespaces $HOME $REPO
     startKafka $HOME $REPO
     startPVC $HOME $REPO
+    sleep 30
     startRCA $HOME $REPO
+    sleep 30
     startICA $HOME $REPO
+    sleep 30
     startRegisterOrgs $HOME $REPO
     sleep 30
     startRegisterOrderers $HOME $REPO
+    sleep 30
     startRegisterPeers $HOME $REPO
     if [ $FABRIC_NETWORK_TYPE == "PROD" ]; then
         startOrdererNLB $HOME $REPO
         startAnchorPeerNLB $HOME $REPO
     fi
+    sleep 30
     updateChannelArtifacts $HOME $REPO
+    sleep 30
     startOrderer $HOME $REPO
+    sleep 30
     startPeers $HOME $REPO
     if [ $FABRIC_NETWORK_TYPE == "PROD" ]; then
         checkNLBHealthy
     fi
+    sleep 30
     echo "starting next test case: ABAC"
     startTestABAC $HOME $REPO
     echo "sleeping for 1 minute before starting next test case: Marbles"
@@ -68,4 +76,3 @@ DATADIR=/opt/share/
 SCRIPTS=$DATADIR/rca-scripts
 REPO=hyperledger-on-kubernetes
 main
-
